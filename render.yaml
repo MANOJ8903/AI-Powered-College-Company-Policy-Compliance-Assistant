@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: policy-guardian-backend
+    env: java
+    plan: free
+    buildCommand: cd backend && chmod +x mvnw && ./mvnw -DskipTests package
+    startCommand: cd backend && java -jar target/backend-0.0.1-SNAPSHOT.jar
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: JAVA_VERSION
+        value: 21
+
+  - type: static
+    name: policy-guardian-frontend
+    plan: free
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://policy-guardian-backend.onrender.com/api

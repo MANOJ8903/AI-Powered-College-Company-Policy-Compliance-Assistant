@@ -1,0 +1,21 @@
+# Local environment configurations
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build outputs and dependencies
+node_modules/
+dist/
+target/
+*.class
+*.jar
+*.war
+
+# Logs and temp files
+*.log
+tmp*
+scratch/
+.gemini/
+uploads/
