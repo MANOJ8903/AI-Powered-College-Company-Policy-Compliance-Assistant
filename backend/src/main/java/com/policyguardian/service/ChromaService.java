@@ -1,4 +1,4 @@
-﻿package com.policyguardian.service;
+package com.policyguardian.service;
 
 import com.policyguardian.dto.ChromaSearchResult;
 import org.springframework.beans.factory.annotation.Value;

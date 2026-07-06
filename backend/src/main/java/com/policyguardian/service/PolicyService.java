@@ -1,4 +1,4 @@
-﻿package com.policyguardian.service;
+package com.policyguardian.service;
 
 import com.policyguardian.dto.TextChunk;
 import com.policyguardian.model.PolicyDocument;
