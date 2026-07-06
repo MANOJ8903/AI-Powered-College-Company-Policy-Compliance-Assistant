@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { api, type Citation } from '../services/api';
-import { Send, BookOpen, AlertCircle, CheckCircle2, ShieldAlert } from 'lucide-react';
+import { Send, AlertCircle, CheckCircle2, ShieldAlert } from 'lucide-react';
 
 interface ChatMessage {
   id: string;
@@ -25,7 +25,6 @@ export const Chat: React.FC = () => {
   const [input, setInput] = useState('');
   const [sessionId, setSessionId] = useState<string>('');
   const [loading, setLoading] = useState(false);
-  const [activeCitation, setActiveCitation] = useState<Citation | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -147,25 +146,7 @@ export const Chat: React.FC = () => {
                 </div>
               )}
 
-              {/* Citations block */}
-              {msg.sender === 'assistant' && msg.citations && msg.citations.length > 0 && (
-                <div className="citation-container">
-                  <div className="citation-title">Grounded Source Citations:</div>
-                  <div className="citation-pills">
-                    {msg.citations.map((cite, index) => (
-                      <button
-                        key={index}
-                        className="citation-pill"
-                        onClick={() => setActiveCitation(cite)}
-                        title="Click to view parsed source text snippet"
-                      >
-                        <BookOpen size={10} style={{ marginRight: '4px', verticalAlign: 'middle' }} />
-                        {cite.doc_name.length > 20 ? cite.doc_name.substring(0, 17) + '...' : cite.doc_name} : {cite.section}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
+
 
               {/* Follow-up suggestions */}
               {msg.sender === 'assistant' && msg.followUpSuggestions && msg.followUpSuggestions.length > 0 && (
@@ -253,28 +234,7 @@ export const Chat: React.FC = () => {
         </div>
       </form>
 
-      {/* Citation overlay dialog */}
-      {activeCitation && (
-        <div className="modal-overlay" onClick={() => setActiveCitation(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <div className="modal-title">
-                <h3>{activeCitation.doc_name}</h3>
-                <div className="modal-subtitle">Section: {activeCitation.section}</div>
-              </div>
-              <button className="modal-close-btn" onClick={() => setActiveCitation(null)}>
-                &times;
-              </button>
-            </div>
-            <div className="modal-body">
-              <p style={{ fontStyle: 'italic', color: 'var(--text-secondary)', marginBottom: '8px' }}>
-                Grounded snippet from index:
-              </p>
-              <div style={{ lineHeight: '1.5', whiteSpace: 'pre-wrap' }}>{activeCitation.excerpt}</div>
-            </div>
-          </div>
-        </div>
-      )}
+
     </div>
   );
 };
