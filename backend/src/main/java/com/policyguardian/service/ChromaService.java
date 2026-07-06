@@ -249,15 +249,24 @@ public class ChromaService {
 
         String[] queryWords = rawQuery.toLowerCase().split("[^a-zA-Z0-9]+");
         String[] docWords = document.toLowerCase().split("[^a-zA-Z0-9]+");
-        Set<String> docWordSet = new HashSet<>(List.of(docWords));
 
         int matchCount = 0;
         int uniqueQueryWords = 0;
 
-        for (String word : queryWords) {
-            if (word.length() > 1 && !stopWords.contains(word)) {
+        for (String qWord : queryWords) {
+            if (qWord.length() > 1 && !stopWords.contains(qWord)) {
                 uniqueQueryWords++;
-                if (docWordSet.contains(word)) {
+                boolean matchFound = false;
+                for (String dWord : docWords) {
+                    if (dWord.equals(qWord) || 
+                        (dWord.length() > 3 && qWord.length() > 3 && (dWord.contains(qWord) || qWord.contains(dWord))) ||
+                        (dWord.startsWith(qWord) && dWord.length() - qWord.length() <= 5) ||
+                        (qWord.startsWith(dWord) && qWord.length() - dWord.length() <= 5)) {
+                        matchFound = true;
+                        break;
+                    }
+                }
+                if (matchFound) {
                     matchCount++;
                 }
             }
@@ -265,10 +274,20 @@ public class ChromaService {
 
         if (uniqueQueryWords == 0) {
             // Fallback: match any query words of length > 1 if all were stop words
-            for (String word : queryWords) {
-                if (word.length() > 1) {
+            for (String qWord : queryWords) {
+                if (qWord.length() > 1) {
                     uniqueQueryWords++;
-                    if (docWordSet.contains(word)) {
+                    boolean matchFound = false;
+                    for (String dWord : docWords) {
+                        if (dWord.equals(qWord) || 
+                            (dWord.length() > 3 && qWord.length() > 3 && (dWord.contains(qWord) || qWord.contains(dWord))) ||
+                            (dWord.startsWith(qWord) && dWord.length() - qWord.length() <= 5) ||
+                            (qWord.startsWith(dWord) && qWord.length() - dWord.length() <= 5)) {
+                            matchFound = true;
+                            break;
+                        }
+                    }
+                    if (matchFound) {
                         matchCount++;
                     }
                 }
