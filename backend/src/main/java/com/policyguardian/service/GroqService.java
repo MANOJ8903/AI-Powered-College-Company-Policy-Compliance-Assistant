@@ -24,21 +24,7 @@ public class GroqService {
     private final WebClient webClient;
 
     public GroqService() {
-        // Configure HttpClient to use Google DNS (8.8.8.8) to bypass local DNS resolution blocks
-        io.netty.resolver.dns.DnsServerAddressStreamProvider nameServerProvider =
-                new io.netty.resolver.dns.SingletonDnsServerAddressStreamProvider(
-                        new java.net.InetSocketAddress("8.8.8.8", 53)
-                );
-        io.netty.resolver.AddressResolverGroup<java.net.InetSocketAddress> resolverGroup =
-                new io.netty.resolver.dns.DnsAddressResolverGroup(
-                        io.netty.channel.socket.nio.NioDatagramChannel.class,
-                        nameServerProvider
-                );
-        reactor.netty.http.client.HttpClient httpClient = reactor.netty.http.client.HttpClient.create()
-                .resolver(resolverGroup);
-
         this.webClient = WebClient.builder()
-                .clientConnector(new org.springframework.http.client.reactive.ReactorClientHttpConnector(httpClient))
                 .codecs(configurer ->
                         configurer.defaultCodecs()
                                 .maxInMemorySize(16 * 1024 * 1024))
