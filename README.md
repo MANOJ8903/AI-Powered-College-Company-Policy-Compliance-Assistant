@@ -208,6 +208,6 @@ This project is licensed under the MIT License.
 
 ## 👤 Author
 
-**Manoj**
+**Manoj Kumar M**
 B.Tech Information Technology
 GitHub: [@MANOJ8903](https://github.com/MANOJ8903)
