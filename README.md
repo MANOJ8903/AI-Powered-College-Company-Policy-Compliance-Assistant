@@ -42,3 +42,172 @@ Organizations often have policy documents (college rulebooks, HR handbooks, comp
 ---
 
 ## 📁 Project Structure
+AI-Powered-College-Company-Policy-Compliance-Assistant/
+├── backend/ # API server, RAG logic, DB models
+├── frontend/ # Client application (React/TS)
+├── .env.example # Environment variable template
+├── docker-compose.yml # Multi-container local dev setup
+├── render.yaml # Render deployment configuration
+├── setup_database.sql # Database schema setup
+├── supabase_init.sql # Supabase initialization script
+├── sample_college_rules.pdf # Sample policy document for testing
+├── run.bat # Quick-start script (Windows)
+├── DEPLOYMENT.md # General deployment guide
+├── DEPLOY_RENDER.md # Render-specific deployment steps
+└── PROGRESS.md # Development progress log
+
+
+---
+
+## ⚙️ Getting Started
+
+### Prerequisites
+- Node.js (v18+)
+- Docker & Docker Compose
+- Supabase account (or local PostgreSQL with pgvector)
+- Groq API key
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/MANOJ8903/AI-Powered-College-Company-Policy-Compliance-Assistant.git
+cd AI-Powered-College-Company-Policy-Compliance-Assistant
+```
+
+### 2. Configure environment variables
+```bash
+cp .env.example .env
+```
+Fill in your credentials:
+GROQ_API_KEY=your_groq_api_key
+SUPABASE_URL=your_supabase_url
+SUPABASE_KEY=your_supabase_key
+DATABASE_URL=your_database_connection_string
+
+
+### 3. Set up the database
+```bash
+psql -f setup_database.sql
+psql -f supabase_init.sql
+```
+
+### 4. Run with Docker
+```bash
+docker-compose up --build
+```
+
+Or run locally without Docker (Windows):
+```bash
+run.bat
+```
+
+The app will be available at `http://localhost:3000` (frontend) and `http://localhost:5000` (backend API).
+
+---
+
+## ☁️ Deployment
+
+This project is pre-configured for deployment on **Render** using `render.yaml`.
+See [`DEPLOY_RENDER.md`](./DEPLOY_RENDER.md) for step-by-step deployment instructions, and [`DEPLOYMENT.md`](./DEPLOYMENT.md) for general deployment notes.
+
+---
+
+## 📖 Usage
+
+1. Upload a policy document (e.g. `sample_college_rules.pdf`) through the ingestion endpoint/UI
+2. The document is chunked, embedded, and stored in the vector database
+3. Ask a question like *"What is the attendance policy for final-year students?"*
+4. The assistant retrieves the relevant policy clauses and generates a grounded answer
+
+---
+
+## 🗺️ Roadmap
+
+- [ ] Multi-document comparison
+- [ ] Role-based access (student/staff/admin views)
+- [ ] Chat history persistence per user
+- [ ] Support for DOCX/HTML policy sources
+
+See [`PROGRESS.md`](./PROGRESS.md) for detailed development status.
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome. Feel free to open an issue or submit a pull request.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 👤 Author
+
+**Manoj**
+B.Tech Information Technology
+GitHub: [@MANOJ8903](https://github.com/MANOJ8903)### 3. Set up the database
+```bash
+psql -f setup_database.sql
+psql -f supabase_init.sql
+```
+
+### 4. Run with Docker
+```bash
+docker-compose up --build
+```
+
+Or run locally without Docker (Windows):
+```bash
+run.bat
+```
+
+The app will be available at `http://localhost:3000` (frontend) and `http://localhost:5000` (backend API).
+
+---
+
+## ☁️ Deployment
+
+This project is pre-configured for deployment on **Render** using `render.yaml`.
+See [`DEPLOY_RENDER.md`](./DEPLOY_RENDER.md) for step-by-step deployment instructions, and [`DEPLOYMENT.md`](./DEPLOYMENT.md) for general deployment notes.
+
+---
+
+## 📖 Usage
+
+1. Upload a policy document (e.g. `sample_college_rules.pdf`) through the ingestion endpoint/UI
+2. The document is chunked, embedded, and stored in the vector database
+3. Ask a question like *"What is the attendance policy for final-year students?"*
+4. The assistant retrieves the relevant policy clauses and generates a grounded answer
+
+---
+
+## 🗺️ Roadmap
+
+- [ ] Multi-document comparison
+- [ ] Role-based access (student/staff/admin views)
+- [ ] Chat history persistence per user
+- [ ] Support for DOCX/HTML policy sources
+
+See [`PROGRESS.md`](./PROGRESS.md) for detailed development status.
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome. Feel free to open an issue or submit a pull request.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 👤 Author
+
+**Manoj**
+B.Tech Information Technology
+GitHub: [@MANOJ8903](https://github.com/MANOJ8903)
